@@ -33,13 +33,13 @@ def user_choose_command():
         command = input('> ')
         if command == 'show movies':
             show_movies()
-        if command == 'show movie projections <movie_id> [<date>]':
+        if command == 'show movie projections':
             show_movies_projections(movie_id, date=None)
         if command == 'make reservation':
             make_reservation()
         if command == 'finalize':
             finalize()
-        if command == 'cancel reservation <name>':
+        if command == 'cancel reservation':
             cancel_reservation(reservation_name)
         if command == 'help':
             help()  # list_user_options()?
