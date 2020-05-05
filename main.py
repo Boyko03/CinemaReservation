@@ -3,7 +3,7 @@ import sys
 from db import Database
 from db_schema import CREATE_USERS, CREATE_MOVIES, CREATE_PROJECTIONS, CREATE_RESERVATIONS
 
-from index_view import welcome, list_user_options
+from index_view import welcome, list_user_options, user_choose_command
 
 
 class Application:
@@ -27,6 +27,7 @@ class Application:
         welcome()
         # TODO
         list_user_options()
+        user_choose_command()
 
 
 if __name__ == '__main__':
