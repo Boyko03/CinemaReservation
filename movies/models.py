@@ -1,5 +1,5 @@
 class MovieModel:
-    def __init__(self, id, name, password):
+    def __init__(self, id, name, rating):
         self.id = id
         self.name = name
-        self.password = password
+        self.rating = rating

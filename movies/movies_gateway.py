@@ -1,4 +1,4 @@
-from ..db import Database
+from db import Database
 from .models import MovieModel
 
 
@@ -7,7 +7,7 @@ class MovieGateway:
         self.model = MovieModel()
         self.db = Database()
 
-    def create(self, name, rating):
+    def add_movie(self, name, rating):
         query = '''
         INSERT INTO Movies(name, rating) VALUES(?,?)
         '''
@@ -16,3 +16,20 @@ class MovieGateway:
 
         self.db.connection.commit()
         self.db.connection.close()
+
+    def show_movies(self):
+        query = '''SELECT * FROM Movies ORDER BY rating;'''
+
+        self.db.cursor.execute(query)
+
+        movies = self.db.cursor.fetchall()
+
+        self.db.connection.close()
+
+        all_movies = []
+
+        for movie in movies:
+            new_movie = self.model(id=movie[0], name=movie[1], rating=[2])
+            all_movies.append(new_movie)
+
+        return all_movies
