@@ -1,6 +1,6 @@
 DB_NAME = 'cinema.db'
 
-user_list_options = ['show movies', 'show movie projections', 'show movie projections by date'
+user_list_options = ['show movies', 'show movie projections', 'show movie projections by date',
                      'make reservation', 'finalize', 'cancel reservation',
                      'exit', 'help', 'cancel']
 

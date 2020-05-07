@@ -9,4 +9,4 @@ class MovieController:
         name = input('Movie name: ')
         rating = input('Movie rating: ')
 
-        self.movies_gateway.add_movie(name=name, rating=rating)
+        return self.movies_gateway.add_movie(name=name, rating=rating)

@@ -1,11 +1,11 @@
 from db import Database
 from projections.models import ProjectionsModel
-from movies.movies_gateway import MovieGateway
+from movies.views import MovieView
 
 
 class ProjectionsGateway:
     def __init__(self):
-        self.model = ProjectionsModel()
+        self.model = ProjectionsModel
         self.db = Database()
 
     def add_projection(self, movie_id, type, date, time):
@@ -19,12 +19,12 @@ class ProjectionsGateway:
         self.db.connection.close()
 
     def show_movie_projections(self):
-        print(MovieGateway.show_movies())
+        MovieView().print_movies()
 
         movie_id = input('Choose movie id: ')
 
         query = '''
-        SELECT * FROM Projections WHERE movie_id = ? ORDER BY date;
+        SELECT * FROM Projections WHERE movie_id = ?;
         '''
 
         self.db.cursor.execute(query, (movie_id,))
@@ -35,13 +35,14 @@ class ProjectionsGateway:
 
         projection_list = []
         for projection in projections:
-            project = self.model(projection[0], projection[1], projection[2], projection[3], projection[4])
+            project = self.model(id=projection[0], movie_id=projection[1],
+                                 type=projection[2], date=projection[3], time=projection[4])
             projection_list.append(project)
 
         return projection_list
 
     def show_movie_projections_by_date(self):
-        print(MovieGateway.show_movies())
+        MovieView().print_movies()
 
         movie_id = input('Choose movie id: ')
         date = input('Date:(yyyy-mm-dd): ')
@@ -58,16 +59,8 @@ class ProjectionsGateway:
 
         projection_list = []
         for projection in projections:
-            project = self.model(projection[0], projection[1], projection[2], projection[3], projection[4])
+            project = self.model(id=projection[0], movie_id=projection[1],
+                                 type=projection[2], date=projection[3], time=projection[4])
             projection_list.append(project)
 
         return projection_list
-
-
-# def main():
-#     project = ProjectionsGateway()
-#     project.show_movie_projections()
-
-
-# if __name__ == '__main__':
-#     main()
