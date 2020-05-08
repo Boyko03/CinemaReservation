@@ -19,7 +19,7 @@ class UserViews:
                 print('Wrong email or password.')
             else:
                 print(f'Hello, {user.name}')
-                break
+                return user
 
     def signup(self):
         username = input('Username: ')
@@ -31,3 +31,4 @@ class UserViews:
 
         user = self.controller.create(username, password)
         print(f'Hello, {user.name}')
+        return user

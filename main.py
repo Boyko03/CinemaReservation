@@ -1,10 +1,15 @@
 import sys
 
 from db import Database
-from db_schema import CREATE_USERS, CREATE_MOVIES, CREATE_PROJECTIONS, CREATE_RESERVATIONS
+from db_schema import (
+    CREATE_USERS,
+    CREATE_MOVIES,
+    CREATE_PROJECTIONS,
+    CREATE_RESERVATIONS)
 from db_schema import INSERT_INTO_MOVIES, INSERT_INTO_PROJECTIONS
+from settings import empty_hall
 
-from index_view import list_user_options, user_choose_command  # , welcome
+from index_view import list_user_options, user_choose_command, welcome
 
 
 class Application:
@@ -17,7 +22,12 @@ class Application:
         db.cursor.execute(CREATE_RESERVATIONS)
 
         db.cursor.execute(INSERT_INTO_MOVIES)
-        db.cursor.execute(INSERT_INTO_PROJECTIONS)
+        db.cursor.execute(INSERT_INTO_PROJECTIONS, (
+            str(empty_hall), str(empty_hall),
+            str(empty_hall), str(empty_hall),
+            str(empty_hall), str(empty_hall)
+        )
+        )
 
         # TODO: Seed with inistial data - consider using another command for this
 
@@ -28,10 +38,10 @@ class Application:
 
     @classmethod
     def start(self):
-        # welcome()
-        # TODO
+        user = welcome()
+
         list_user_options()
-        user_choose_command()
+        user_choose_command(user)
 
 
 if __name__ == '__main__':
@@ -42,4 +52,5 @@ if __name__ == '__main__':
     elif command == 'start':
         Application.start()
     else:
-        raise ValueError(f'Unknown command {command}. Valid ones are "build" and "start"')
+        raise ValueError(
+            f'Unknown command {command}. Valid ones are "build" and "start"')

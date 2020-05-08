@@ -3,3 +3,5 @@ class UserModel:
         self.id = id
         self.name = name
         self.password = password
+
+        self.reservation = None

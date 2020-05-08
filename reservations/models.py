@@ -5,3 +5,5 @@ class ReservationModel:
         self.projection_id = projection_id
         self.row = row
         self.col = col
+
+        self.free_spaces
