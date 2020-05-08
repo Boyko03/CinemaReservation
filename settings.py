@@ -2,7 +2,7 @@ DB_NAME = 'cinema.db'
 
 user_list_options = ['show movies', 'show movie projections', 'show movie projections by date',
                      'make reservation', 'finalize', 'cancel reservation',
-                     'exit', 'help', 'cancel']
+                     'help', 'cancel', 'exit']
 
 empty_hall = [['  ', ' 1 ', ' 2 ', ' 3 ', ' 4 ', ' 5 ', ' 6 ', ' 7 ', ' 8 ', ' 9 ', ' 10'],
               [' 1', ' . ', ' . ', ' . ', ' . ', ' . ', ' . ', ' . ', ' . ', ' . ', ' . '],

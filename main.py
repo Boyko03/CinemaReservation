@@ -1,10 +1,11 @@
 import sys
+import os
 
 from db import Database
 from db_schema import CREATE_USERS, CREATE_MOVIES, CREATE_PROJECTIONS, CREATE_RESERVATIONS
 from db_schema import INSERT_INTO_MOVIES, INSERT_INTO_PROJECTIONS
 
-from index_view import list_user_options, user_choose_command  # , welcome
+from index_view import welcome, list_user_options, user_choose_command
 
 
 class Application:
@@ -19,8 +20,6 @@ class Application:
         db.cursor.execute(INSERT_INTO_MOVIES)
         db.cursor.execute(INSERT_INTO_PROJECTIONS)
 
-        # TODO: Seed with inistial data - consider using another command for this
-
         db.connection.commit()
         db.connection.close()
 
@@ -28,8 +27,8 @@ class Application:
 
     @classmethod
     def start(self):
-        # welcome()
-        # TODO
+        welcome()
+        os.system('clear')
         list_user_options()
         user_choose_command()
 

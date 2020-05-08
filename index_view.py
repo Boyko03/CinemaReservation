@@ -1,4 +1,4 @@
-# from users.views import UserViews
+from users.views import UserViews
 
 from settings import user_list_options
 
@@ -6,27 +6,29 @@ from movies.views import MovieView
 from projections.views import ProjectionViews
 
 
-# def welcome():
-#     print('Welcome to HackCinema!')
-#     command = int(input('Choose a command:\n  1 - log in\n  2 - sign up\n  Input: '))
-#     user_views = UserViews()
+def welcome():
+    print('Welcome to HackCinema!')
+    command = int(input('Choose a command:\n  1 - log in\n  2 - sign up\n\n  Input: '))
+    user_views = UserViews()
 
-#     if command == 1:
-#         return user_views.login()
+    if command == 1:
+        print('\n')
+        return user_views.login()
 
-#     if command == 2:
-#         return user_views.signup()
+    if command == 2:
+        print('\n')
+        return user_views.signup()
 
-#     raise ValueError(f'Unknown command {command}.')
+    raise ValueError(f'Unknown command {command}.')
 
 
 def list_user_options():
     print('You can choose from the following commands:')
-    print('-------------------------------------------')
+    print('-------------------------------------------\n')
     for command in user_list_options:
         print(command)
 
-    print('-------------------------------------------')
+    print('\n-------------------------------------------\n')
 
 
 def user_choose_command():
@@ -50,3 +52,5 @@ def user_choose_command():
             list_user_options()
         if command == 'cancel':
             cancel()
+
+    print('\nGoodbye!\n')

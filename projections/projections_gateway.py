@@ -22,6 +22,7 @@ class ProjectionsGateway:
         MovieView().print_movies()
 
         movie_id = input('Choose movie id: ')
+        print('\n')
 
         query = '''
         SELECT * FROM Projections WHERE movie_id = ?;
@@ -46,6 +47,7 @@ class ProjectionsGateway:
 
         movie_id = input('Choose movie id: ')
         date = input('Date:(yyyy-mm-dd): ')
+        print('\n')
 
         query = '''
         SELECT * FROM Projections WHERE movie_id = ? AND date = ?;
