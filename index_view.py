@@ -1,5 +1,5 @@
 from users.views import UserViews
-
+import os
 from settings import user_list_options
 
 from movies.views import MovieView
@@ -36,6 +36,7 @@ def user_choose_command():
     command = ''
     while command != 'exit':
         command = input('> ')
+        os.system('clear')
         if command == 'show movies':
             MovieView().print_movies()
         if command == 'show movie projections':
