@@ -4,6 +4,7 @@ from settings import user_list_options
 
 from movies.views import MovieView
 from projections.views import ProjectionViews
+from reservations.views import ReservationView
 
 
 # def welcome():
@@ -41,11 +42,11 @@ def user_choose_command():
         if command == 'show movie projections by date':
             ProjectionViews().print_projections_by_date()
         if command == 'make reservation':
-            make_reservation()
+            ReservationView().make_reservation()
         if command == 'finalize':
             finalize()
         if command == 'cancel reservation':
-            cancel_reservation()
+            ReservationView().cancel_reservation()
         if command == 'help':
             list_user_options()
         if command == 'cancel':
