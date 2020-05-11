@@ -1,7 +1,5 @@
 from movies.controllers import MovieController
 
-from movies.movies_gateway import MovieGateway
-
 
 class MovieView:
     def __init__(self):
@@ -9,9 +7,15 @@ class MovieView:
 
     def print_movies(self):
         print('\n')
-        self.controller = MovieGateway().show_movies()
+        movies = self.controller.get_movies()
 
-        for movie in self.controller:
-            print(f'[ {movie.id} ] - {movie.name} - {movie.rating}')
+        for movie in movies:
+            print(f'[ {movie[0]} ] - {movie[1]} - {movie[2]}')
 
         print('\n')
+
+    def create_new_movie(self):
+        name = input('Movie name: ')
+        rating = input('Movie rating: ')
+
+        return self.controller.create_movie(name=name, rating=rating)

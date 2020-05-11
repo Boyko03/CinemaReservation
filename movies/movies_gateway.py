@@ -17,7 +17,7 @@ class MovieGateway:
         self.db.connection.commit()
         self.db.connection.close()
 
-    def show_movies(self):
+    def select_movies(self):
         query = '''SELECT * FROM Movies ORDER BY rating DESC;'''
 
         self.db.cursor.execute(query)
@@ -26,10 +26,4 @@ class MovieGateway:
 
         self.db.connection.close()
 
-        all_movies = []
-
-        for movie in movies:
-            new_movie = self.model(id=movie[0], name=movie[1], rating=movie[2])
-            all_movies.append(new_movie)
-
-        return all_movies
+        return movies

@@ -6,7 +6,14 @@ class MovieController:
         self.movies_gateway = MovieGateway()
 
     def create_movie(self, name, rating):
-        name = input('Movie name: ')
-        rating = input('Movie rating: ')
-
         return self.movies_gateway.add_movie(name=name, rating=rating)
+
+    def get_movies(self):
+        movies = self.movies_gateway.select_movies()
+
+        all_movies = []
+
+        for movie in movies:
+            all_movies.append(movie)
+
+        return all_movies
