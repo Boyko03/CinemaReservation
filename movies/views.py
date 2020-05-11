@@ -18,4 +18,6 @@ class MovieView:
         name = input('Movie name: ')
         rating = input('Movie rating: ')
 
-        return self.controller.create_movie(name=name, rating=rating)
+        self.controller.create_movie(name=name, rating=rating)
+
+        print('Movie added successfully')
