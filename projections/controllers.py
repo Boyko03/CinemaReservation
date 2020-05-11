@@ -18,7 +18,7 @@ class ProjectionController:
         return projection_list
 
     def get_movie_projections_by_date(self, movie_id, projection_date):
-        projections = self.projections_gateway.select_movie_projections_by_date(movie_id, projection_date)
+        projections = self.projections_gateway.select_movie_projections(movie_id, projection_date)
 
         projection_list = []
         for projection in projections:
