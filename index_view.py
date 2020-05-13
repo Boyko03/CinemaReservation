@@ -4,22 +4,36 @@ from settings import user_list_options
 
 from movies.views import MovieView
 from projections.views import ProjectionViews
+from reservations.views import ReservationView
+from users.views import UserViews
 
 
 def welcome():
     print('Welcome to HackCinema!')
-    command = int(input('Choose a command:\n  1 - log in\n  2 - sign up\n\n  Input: '))
+
+    print('Choose a command:')
+    print('1 - log in')
+    print('2 - sign up')
+    print('3 - exit')
+    command = input('> ')
+    while not command.isalnum() or command not in ['1', '2', '3']:
+        print('\nChoose a command:')
+        print('1 - log in')
+        print('2 - sign up')
+        print('3 - exit')
+        command = int(input('> '))
+
     user_views = UserViews()
+    command = int(command)
 
     if command == 1:
-        print('\n')
         return user_views.login()
 
-    if command == 2:
-        print('\n')
+    elif command == 2:
         return user_views.signup()
 
-    raise ValueError(f'Unknown command {command}.')
+    elif command == 3:
+        exit()
 
 
 def list_user_options():
@@ -31,7 +45,7 @@ def list_user_options():
     print('\n-------------------------------------------\n')
 
 
-def user_choose_command():
+def user_choose_command(user):
     # TODO all functions
     command = ''
     while command != 'exit':
@@ -44,14 +58,10 @@ def user_choose_command():
         if command == 'show movie projections by date':
             ProjectionViews().print_projections_by_date()
         if command == 'make reservation':
-            make_reservation()
-        if command == 'finalize':
-            finalize()
+            ReservationView().make_reservation(user)
         if command == 'cancel reservation':
-            cancel_reservation()
+            ReservationView().cancel_reservation(user)
         if command == 'help':
             list_user_options()
-        if command == 'cancel':
-            cancel()
 
     print('\nGoodbye!\n')

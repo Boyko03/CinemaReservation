@@ -3,6 +3,9 @@ from projections.models import ProjectionsModel
 from movies.views import MovieView
 
 
+from settings import empty_hall
+
+
 class ProjectionsGateway:
     def __init__(self):
         self.model = ProjectionsModel
@@ -10,10 +13,12 @@ class ProjectionsGateway:
 
     def add_projection(self, movie_id, type, date, time):
         query = '''
-        INSERT INTO Projections(movie_id, type, date, time) VALUES(?,?,?,?)
+        INSERT INTO Projections
+        (movie_id, type, date, time, hall)
+        VALUES(?, ?, ?, ?, ?)
         '''
 
-        self.db.cursor.execute(query, (movie_id, type, date, time))
+        self.db.cursor.execute(query, (movie_id, type, date, time, empty_hall))
 
         self.db.connection.commit()
         self.db.connection.close()
@@ -36,8 +41,12 @@ class ProjectionsGateway:
 
         projection_list = []
         for projection in projections:
-            project = self.model(id=projection[0], movie_id=projection[1],
-                                 type=projection[2], date=projection[3], time=projection[4])
+            project = self.model(id=projection[0],
+                                 movie_id=projection[1],
+                                 type=projection[2],
+                                 date=projection[3],
+                                 time=projection[4],
+                                 hall=projection[5])
             projection_list.append(project)
 
         return projection_list
@@ -61,8 +70,12 @@ class ProjectionsGateway:
 
         projection_list = []
         for projection in projections:
-            project = self.model(id=projection[0], movie_id=projection[1],
-                                 type=projection[2], date=projection[3], time=projection[4])
+            project = self.model(id=projection[0],
+                                 movie_id=projection[1],
+                                 type=projection[2],
+                                 date=projection[3],
+                                 time=projection[4],
+                                 hall=projection[5])
             projection_list.append(project)
 
         return projection_list
