@@ -1,4 +1,5 @@
 import sys
+import os
 
 from db import Database
 from db_schema import (
@@ -9,7 +10,7 @@ from db_schema import (
 from db_schema import INSERT_INTO_MOVIES, INSERT_INTO_PROJECTIONS
 from settings import empty_hall
 
-from index_view import list_user_options, user_choose_command, welcome
+from index_view import welcome, list_user_options, user_choose_command
 
 
 class Application:
@@ -29,8 +30,6 @@ class Application:
         )
         )
 
-        # TODO: Seed with inistial data - consider using another command for this
-
         db.connection.commit()
         db.connection.close()
 
@@ -40,6 +39,7 @@ class Application:
     def start(self):
         user = welcome()
 
+        os.system('clear')
         list_user_options()
         user_choose_command(user)
 

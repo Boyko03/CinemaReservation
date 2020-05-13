@@ -1,5 +1,5 @@
-# from users.views import UserViews
-
+from users.views import UserViews
+import os
 from settings import user_list_options
 
 from movies.views import MovieView
@@ -38,11 +38,11 @@ def welcome():
 
 def list_user_options():
     print('You can choose from the following commands:')
-    print('-------------------------------------------')
+    print('-------------------------------------------\n')
     for command in user_list_options:
         print(command)
 
-    print('-------------------------------------------')
+    print('\n-------------------------------------------\n')
 
 
 def user_choose_command(user):
@@ -50,6 +50,7 @@ def user_choose_command(user):
     command = ''
     while command != 'exit':
         command = input('> ')
+        os.system('clear')
         if command == 'show movies':
             MovieView().print_movies()
         if command == 'show movie projections':
@@ -62,3 +63,5 @@ def user_choose_command(user):
             ReservationView().cancel_reservation(user)
         if command == 'help':
             list_user_options()
+
+    print('\nGoodbye!\n')
