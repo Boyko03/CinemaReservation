@@ -1,11 +1,10 @@
-from users.views import UserViews
 import os
 from settings import user_list_options
 
+# from users.views import UserViews
 from movies.views import MovieView
 from projections.views import ProjectionViews
-from reservations.views import ReservationView
-from users.views import UserViews
+# from reservations.views import ReservationView
 
 
 def welcome():
@@ -15,7 +14,9 @@ def welcome():
     print('1 - log in')
     print('2 - sign up')
     print('3 - exit')
+
     command = input('> ')
+
     while not command.isalnum() or command not in ['1', '2', '3']:
         print('\nChoose a command:')
         print('1 - log in')
@@ -45,7 +46,8 @@ def list_user_options():
     print('\n-------------------------------------------\n')
 
 
-def user_choose_command(user):
+# def user_choose_command(user):
+def user_choose_command():
     # TODO all functions
     command = ''
     while command != 'exit':
@@ -59,10 +61,10 @@ def user_choose_command(user):
             ProjectionViews().print_projections_by_date()
         if command == 'add new movie':
             MovieView().create_new_movie()
-        if command == 'make reservation':
-            ReservationView().make_reservation(user)
-        if command == 'cancel reservation':
-            ReservationView().cancel_reservation(user)
+        # if command == 'make reservation':
+        #     ReservationView().make_reservation(user)
+        # if command == 'cancel reservation':
+        #     ReservationView().cancel_reservation(user)
         if command == 'help':
             list_user_options()
 

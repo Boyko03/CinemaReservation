@@ -1,5 +1,4 @@
 from projections.controllers import ProjectionController
-# from projections.projections_gateway import ProjectionsGateway
 from movies.views import MovieView
 
 
@@ -14,8 +13,8 @@ class ProjectionViews:
         print('\n')
         projections = self.controller.get_movie_projections(movie_id)
 
-        for projection in projections:
-            print(f'[{projection[0]}] - {projection[3]} - {projection[4]} - {projection[2]}')
+        for p in projections:
+            print(f'[{p.id}] - {p.projection_type} - {p.projection_date} - {p.projection_time}')
         print('\n')
 
     def print_projections_by_date(self):
@@ -30,14 +29,14 @@ class ProjectionViews:
             print('There are no projections for this date!\n')
             return
 
-        for projection in projections:
-            print(f'[ {projection[0]} ] - {projection[3]} - {projection[4]} - {projection[2]}')
+        for p in projections:
+            print(f'[ {p.id} ] - {p.projection_type} - {p.projection_date} - {p.projection_time}')
         print('\n')
 
     def add_projection(self):
         movie_id = input('Movie id: ')
-        movie_type = input('Movie type: ')
+        projection_type = input('Projection type: ')
         projection_date = input('Date: ')
         projection_time = input('Time: ')
 
-        return self.controller.create_projection(movie_id, movie_type, projection_date, projection_time)
+        return self.controller.create_projection(movie_id, projection_type, projection_date, projection_time)

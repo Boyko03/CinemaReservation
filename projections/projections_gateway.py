@@ -1,42 +1,41 @@
-from db import Database
-from projections.models import ProjectionsModel
-
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from projections.models import Projections
 
 from settings import empty_hall
 
 
 class ProjectionsGateway:
     def __init__(self):
-        self.model = ProjectionsModel
-        self.db = Database()
+        self.model = Projections
 
     def add_projection(self, movie_id, projection_type, projection_date, projection_time):
-        query = '''
-        INSERT INTO Projections
-        (movie_id, type, date, time, hall)
-        VALUES(?, ?, ?, ?, ?)
-        '''
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
 
-        self.db.cursor.execute(query, (movie_id, projection_type, projection_date, projection_time, empty_hall))
+        session = Session()
 
-        self.db.connection.commit()
-        self.db.connection.close()
+        print("Adding new projection to the database via the session object")
+
+        new_projection = self.model(movie_id=movie_id,
+                                    projection_type=projection_type,
+                                    projection_date=projection_date,
+                                    projection_time=projection_time,
+                                    hall=empty_hall)
+
+        session.add(new_projection)
+        session.commit()
 
     def select_movie_projections(self, movie_id, projection_date=None):
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
+
+        session = Session()
+
         if projection_date is not None:
-            query = '''
-            SELECT * FROM Projections WHERE movie_id = ? AND date = ?;
-            '''
-            self.db.cursor.execute(query, (movie_id, projection_date))
-
+            projections = session.query(Projections).filter(Projections.movie_id == movie_id,
+                                                            Projections.projection_date == projection_date).all()
         else:
-            query = '''
-            SELECT * FROM Projections WHERE movie_id = ?;
-            '''
-            self.db.cursor.execute(query, (movie_id,))
-
-        projections = self.db.cursor.fetchall()
-
-        self.db.connection.close()
+            projections = session.query(Projections).filter(Projections.movie_id == movie_id).all()
 
         return projections

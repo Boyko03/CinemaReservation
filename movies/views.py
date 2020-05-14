@@ -10,7 +10,7 @@ class MovieView:
         movies = self.controller.get_movies()
 
         for movie in movies:
-            print(f'[ {movie[0]} ] - {movie[1]} - {movie[2]}')
+            print(f'[ {movie.id} ] - {movie.name} - {movie.rating}')
 
         print('\n')
 

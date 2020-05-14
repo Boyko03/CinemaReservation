@@ -1,29 +1,32 @@
-from db import Database
-from .models import MovieModel
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from movies.models import Movies
 
 
 class MovieGateway:
     def __init__(self):
-        self.model = MovieModel
-        self.db = Database()
+        self.model = Movies
 
     def add_movie(self, name, rating):
-        query = '''
-        INSERT INTO Movies(name, rating) VALUES(?,?)
-        '''
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
 
-        self.db.cursor.execute(query, (name, rating))  # TODO query
+        session = Session()
 
-        self.db.connection.commit()
-        self.db.connection.close()
+        print("Adding new movies to the database via the session object")
+
+        new_movie = self.model(name=name, rating=rating)
+
+        session.add(new_movie)
+        session.commit()
 
     def select_movies(self):
-        query = '''SELECT * FROM Movies ORDER BY rating DESC;'''
+        engine = create_engine("sqlite:///cinema.db")
 
-        self.db.cursor.execute(query)
+        Session = sessionmaker(bind=engine)
 
-        movies = self.db.cursor.fetchall()
+        session = Session()
 
-        self.db.connection.close()
+        all_movies = session.query(Movies).all()
 
-        return movies
+        return all_movies

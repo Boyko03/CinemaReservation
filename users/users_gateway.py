@@ -2,7 +2,7 @@ import hashlib
 
 
 from .models import UserModel
-from db import Database
+# from db import Database
 
 
 class UserGateway:
