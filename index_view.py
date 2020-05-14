@@ -43,6 +43,8 @@ def user_choose_command():
             ProjectionViews().print_all_projections()
         if command == 'show movie projections by date':
             ProjectionViews().print_projections_by_date()
+        if command == 'add new movie':
+            MovieView().create_new_movie()
         if command == 'make reservation':
             make_reservation()
         if command == 'finalize':
