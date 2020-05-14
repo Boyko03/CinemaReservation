@@ -39,47 +39,4 @@ class ProjectionsGateway:
 
         self.db.connection.close()
 
-<<<<<<< HEAD
-        projection_list = []
-        for projection in projections:
-            project = self.model(id=projection[0],
-                                 movie_id=projection[1],
-                                 type=projection[2],
-                                 date=projection[3],
-                                 time=projection[4],
-                                 hall=projection[5])
-            projection_list.append(project)
-
-        return projection_list
-
-    def show_movie_projections_by_date(self):
-        MovieView().print_movies()
-
-        movie_id = input('Choose movie id: ')
-        date = input('Date:(yyyy-mm-dd): ')
-        print('\n')
-
-        query = '''
-        SELECT * FROM Projections WHERE movie_id = ? AND date = ?;
-        '''
-
-        self.db.cursor.execute(query, (movie_id, date))
-
-        projections = self.db.cursor.fetchall()
-
-        self.db.connection.close()
-
-        projection_list = []
-        for projection in projections:
-            project = self.model(id=projection[0],
-                                 movie_id=projection[1],
-                                 type=projection[2],
-                                 date=projection[3],
-                                 time=projection[4],
-                                 hall=projection[5])
-            projection_list.append(project)
-
-        return projection_list
-=======
         return projections
->>>>>>> ani_new
