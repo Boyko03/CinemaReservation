@@ -1,6 +1,5 @@
 from db import Database
 from projections.models import ProjectionsModel
-from movies.views import MovieView
 
 
 from settings import empty_hall
@@ -11,34 +10,36 @@ class ProjectionsGateway:
         self.model = ProjectionsModel
         self.db = Database()
 
-    def add_projection(self, movie_id, type, date, time):
+    def add_projection(self, movie_id, projection_type, projection_date, projection_time):
         query = '''
         INSERT INTO Projections
         (movie_id, type, date, time, hall)
         VALUES(?, ?, ?, ?, ?)
         '''
 
-        self.db.cursor.execute(query, (movie_id, type, date, time, empty_hall))
+        self.db.cursor.execute(query, (movie_id, projection_type, projection_date, projection_time, empty_hall))
 
         self.db.connection.commit()
         self.db.connection.close()
 
-    def show_movie_projections(self):
-        MovieView().print_movies()
+    def select_movie_projections(self, movie_id, projection_date=None):
+        if projection_date is not None:
+            query = '''
+            SELECT * FROM Projections WHERE movie_id = ? AND date = ?;
+            '''
+            self.db.cursor.execute(query, (movie_id, projection_date))
 
-        movie_id = input('Choose movie id: ')
-        print('\n')
-
-        query = '''
-        SELECT * FROM Projections WHERE movie_id = ?;
-        '''
-
-        self.db.cursor.execute(query, (movie_id,))
+        else:
+            query = '''
+            SELECT * FROM Projections WHERE movie_id = ?;
+            '''
+            self.db.cursor.execute(query, (movie_id,))
 
         projections = self.db.cursor.fetchall()
 
         self.db.connection.close()
 
+<<<<<<< HEAD
         projection_list = []
         for projection in projections:
             project = self.model(id=projection[0],
@@ -79,3 +80,6 @@ class ProjectionsGateway:
             projection_list.append(project)
 
         return projection_list
+=======
+        return projections
+>>>>>>> ani_new
