@@ -1,6 +1,6 @@
 from .models import ReservationModel
 from db import Database
-from projections.models import ProjectionsModel
+from projections.models import Projections
 
 
 class ReservationGateway:
@@ -34,12 +34,12 @@ class ReservationGateway:
 
         projection_list = []
         for projection in projections:
-            project = ProjectionsModel(id=projection[0],
-                                       movie_id=projection[1],
-                                       type=projection[2],
-                                       date=projection[3],
-                                       time=projection[4],
-                                       hall=projection[5])
+            project = Projections(id=projection[0],
+                                  movie_id=projection[1],
+                                  projection_type=projection[2],
+                                  projection_date=projection[3],
+                                  projection_time=projection[4],
+                                  hall=projection[5])
 
             free_spaces = 0
             for row in project.hall:

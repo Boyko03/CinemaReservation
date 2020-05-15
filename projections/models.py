@@ -1,8 +1,12 @@
-class ProjectionsModel:
-    def __init__(self, projection_id, movie_id, projection_type, projection_date, projection_time, hall):
-        self.projection_id = projection_id
-        self.movie_id = movie_id
-        self.projection_type = projection_type
-        self.projection_date = projection_date
-        self.projection_time = projection_time
-        self.hall = hall
+from sqlalchemy import Column, Integer, String
+from db import Base
+
+
+class Projections(Base):
+    __tablename__ = 'Projections'
+    id = Column(Integer, primary_key=True)
+    movie_id = Column(Integer)
+    projection_type = Column(String)
+    projection_date = Column(String)
+    projection_time = Column(String)
+    # hall = Column()
