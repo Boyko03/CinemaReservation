@@ -1,7 +1,11 @@
-class UserModel:
-    def __init__(self, id, name, password):
-        self.id = id
-        self.name = name
-        self.password = password
+from sqlalchemy import Column, Integer, String, Float
+from db import Base
 
-        self.reservation = None
+
+class Users(Base):
+    __tablename__ = "Users"
+    id = Column(Integer, primary_key=True)
+    username = Column(String)
+    password = Column(String)
+
+    reservations = []

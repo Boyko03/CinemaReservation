@@ -1,36 +1,38 @@
-from .models import ReservationModel
-from db import Database
+from .models import Reservations
 from projections.models import Projections
 
 
 class ReservationGateway:
     def __init__(self):
-        self.model = ReservationModel
-        self.db = Database()
+        self.model = Reservations
 
     def take_seat(self, projection, row, col, hall):
-        query = """
-        UPDATE Projections
-        SET hall = ?
-        WHERE id = ?;
-        """
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
+
+        session = Session()
 
         hall[row][col] = 'X'
         projection.hall = str(hall)
 
-        self.db.cursor.execute(query, (projection.hall, projection.id))
+        session.query(self.model).filter(self.model.id == projection.id).update({self.model.hall: projection.hall})
+
 
     def commit(self):
-        self.db.connection.commit()
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
+
+        session = Session()
+
+        session.commit()
 
     def get_projections(self, movie_id):
-        query = '''
-        SELECT * FROM Projections WHERE movie_id = ?;
-        '''
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
 
-        self.db.cursor.execute(query, (movie_id,))
+        session = Session()
 
-        projections = self.db.cursor.fetchall()
+        projections = session.query(Projections).filter(Projections.movie_id == movie_id).all()
 
         projection_list = []
         for projection in projections:

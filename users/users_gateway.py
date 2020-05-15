@@ -1,46 +1,38 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 import hashlib
 
 
-from .models import UserModel
-# from db import Database
+from .models import Users
 
 
 class UserGateway:
     def __init__(self):
-        self.model = UserModel
-        self.db = Database()
+        self.model = Users
 
     def login(self, username, password):
-        query = """
-        SELECT id
-        FROM Users
-        WHERE
-            username = ? AND
-            password = ?;
-        """
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
 
-        db = Database()
+        session = Session()
+
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        db.cursor.execute(query, (username, hashed_password))
-
-        user_id = db.cursor.fetchone()
-        db.connection.close()
+        user_id = session.query(Users.id).filter(Users.username == username, Users.password == hashed_password).one()
 
         if user_id is not None:
             return self.model(user_id[0], username, password)
 
     def sign_up(self, username, password):
-        query = """
-        INSERT INTO Users
-        (username, password)
-        VALUES(?, ?);
-        """
+        engine = create_engine("sqlite:///cinema.db")
+        Session = sessionmaker(bind=engine)
 
-        db = Database()
+        session = Session()
+
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        db.cursor.execute(query, (username, hashed_password))
 
-        db.connection.commit()
-        db.connection.close()
+        user = self.model(username=username, password=hashed_password)
+
+        session.add(user)
+        session.commit()
 
         return self.login(username, password)
