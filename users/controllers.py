@@ -33,8 +33,8 @@ class UserController:
     def try_to_log_in(self, username, password):
         return self.users_gateway.login(username, password)
 
-    def create(self, username, password):
+    def signup(self, username, password):
         if self.try_to_log_in(username, password):
             return
         else:
-            return self.users_gateway.sign_up(username, password)
+            return self.users_gateway.create(username, password)

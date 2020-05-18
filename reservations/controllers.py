@@ -35,7 +35,7 @@ class ReservationController:
 
     def get_movies(self):
         movies_gateway = MovieGateway()
-        movies = movies_gateway.show_movies()
+        movies = movies_gateway.select_movies()
         self.movies_count = len(movies)
 
         self.movies = movies
@@ -172,7 +172,7 @@ class ReservationController:
         # self.movie = (self.movie.name, self.movie.rating)
         print(f'Movie: {self.movie.name} {self.movie.rating}')
         print(
-            f'Date and time: {self.projection.date} {self.projection.time} {self.projection.type}')
+            f'Date and time: {self.projection.projection_date} {self.projection.projection_time} {self.projection.projection_type}')
         print(
             f'Seats: {"".join([str((seat[0] + 1, seat[1] + 1)) for seat in self.seats])}')
 

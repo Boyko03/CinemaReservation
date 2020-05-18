@@ -3,11 +3,11 @@ from db import Base
 
 
 class Reservations(Base):
+    __tablename__ = "Reservations"
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer)
     projection_id = Column(Integer)
     row = Column(Integer)
     col = Column(Integer)
-    hall = Column(String)
 
-    free_spaces
+    free_spaces = None

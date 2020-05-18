@@ -9,4 +9,4 @@ class Projections(Base):
     projection_type = Column(String)
     projection_date = Column(String)
     projection_time = Column(String)
-    # hall = Column()
+    hall = Column(String)

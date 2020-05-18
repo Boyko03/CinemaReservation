@@ -26,7 +26,7 @@ class ReservationView:
         print(f'Projectons for movie \'{movie_name}\':')
         for projection in projections:
             print(
-                f'[{projection.id}] - {projection.date} {projection.time} ({projection.type}) - {projection.free_spaces}')
+                f'[{projection.id}] - {projection.projection_date} {projection.projection_time} ({projection.projection_type}) - {projection.free_spaces}')
 
         projection_id = self.controller.choose_projection()
         if projection_id is None:
